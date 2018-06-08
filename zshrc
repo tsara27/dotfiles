@@ -5,8 +5,7 @@ export ZSH=/Users/tsara27/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="robbyrussell"
-
+ZSH_THEME=""
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -56,7 +55,7 @@ plugins+=(zsh-nvm git pip elixir rake-fast)
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
-source $HOME/.cargo/env
+# source $HOME/.cargo/env
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
 
@@ -71,12 +70,12 @@ source $HOME/.cargo/env
 # export ARCHFLAGS="-arch x86_64"
 
 # ssh
-export SSH_KEY_PATH="~/.ssh/tsaras_mac"
+export SSH_KEY_PATH="~/.ssh/tsaras_mpb"
 
 # Bundle config
 export BUNDLE_GITHUB__HTTPS=true
-
-# Set personal aliases, overriding those provided by oh-my-zsh libs,
+export GIT_EDITOR=nvim
+ #Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
@@ -84,6 +83,10 @@ export BUNDLE_GITHUB__HTTPS=true
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+autoload -U promptinit; promptinit
+prompt pure
+
 alias bex="bundle exec"
 alias rtest="rake test"
 alias towork="cd ~/Works"
@@ -98,7 +101,19 @@ export PATH="$PATH:$HOME/.kerl"
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin
 export PATH=$PATH:/Applications/VimR.app/Contents/Resources
+export PATH=$PATH:$HOME/Applications
+
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export PATH="/usr/local/sbin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
