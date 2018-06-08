@@ -7,17 +7,17 @@ set textwidth=80
 set colorcolumn=+1
 set termguicolors
 set expandtab tabstop=2 shiftwidth=2
+set linespace=5
+set guicursor=n-v-c:blinkon0
 
 call plug#begin('~/.vim/plugged')
-"Plug 'vim-airline/vim-airline'
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
-"Plug 'sheerun/vim-polyglot'
-"Plug 'tpope/vim-fugitive'
+Plug 'easymotion/vim-easymotion'
 Plug 'dracula/vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'bling/vim-bufferline'
 Plug 'janko-m/vim-test'
 Plug 'ayu-theme/ayu-vim'
@@ -32,6 +32,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-endwise'
 Plug 'jiangmiao/auto-pairs'
+
 " Web development plugins
 " Plug 'vim-ruby/vim-ruby'
 " Plug 'tpope/vim-rails'
@@ -40,20 +41,13 @@ call plug#end()
 filetype plugin indent on
 
 let ayucolor='mirage'
-colorscheme dracula
+colorscheme ayu
 
 map <C-n> :NERDTreeToggle<CR>
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
 
 let g:NERDTreeShowHidden=1
-"let g:airline_theme='papercolor'
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline_powerline_fonts = 1
-"let g:airline#extensions#tabline#fnamemod = ':t'
-"let g:airline#extensions#tabline#show_splits = 1
-"let g:airline#extensions#tabline#buffer_nr_show = 1
-"let g:polyglot_disabled = ['vala', 'thrift', 'systemd', 'sxhkd', 'vcl', 'terraform', 'scala', 'sbt', 'solidity']
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
@@ -64,13 +58,11 @@ let g:lightline = {
       \ },
       \ }
 let g:indentLine_enabled = 1
-let g:indentLine_char = ''
-let g:indentLine_first_char = ''
+let g:indentLine_char = '┊'
+let g:indentLine_first_char = ''
 let g:indentLine_showFirstIndentLevel = 1
 let g:indentLine_setColors = 1
 let g:indentLine_faster = 1
-"let g:indentLine_leadingSpaceEnabled = 1
-"let g:indentLine_leadingSpaceChar = '.'
 
 hi ColorColumn guibg=#212121 ctermbg=238
 
@@ -90,6 +82,7 @@ nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
 nmap <silent> <C-s> :StripWhitespace<CR> :w<CR>
 nmap <C-p> :FZF<CR>
+nmap <S-C-f> :Ag<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
