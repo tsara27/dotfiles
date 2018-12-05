@@ -1,59 +1,71 @@
-set nocompatible
 set autoread
-set hidden
-set background=light
-set number
-set t_Co=256
-set lazyredraw
-set expandtab tabstop=2 shiftwidth=2
-set backspace=2
-set laststatus=2
-set splitright
 set noswapfile
+set hidden
+set background=dark
+set number relativenumber
+set nu rnu
 set textwidth=80
 set colorcolumn=+1
-set noeb vb t_vb=
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-set ttyfast
-syntax on
-
-colorscheme PaperColor
+set termguicolors
+set expandtab softtabstop=2 shiftwidth=2
+set linespace=0
+set guicursor=n-v-c:blinkon0
 
 call plug#begin('~/.vim/plugged')
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'scrooloose/nerdtree'
+Plug 'easymotion/vim-easymotion'
+Plug 'dracula/vim'
+Plug 'itchyny/lightline.vim'
+Plug 'itchyny/vim-gitbranch'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'bling/vim-bufferline'
+Plug 'janko-m/vim-test'
+Plug 'ayu-theme/ayu-vim'
 Plug 'slim-template/vim-slim'
-Plug 'sheerun/vim-polyglot'
-Plug 'NLKNguyen/papercolor-theme'
+Plug 'posva/vim-vue'
+Plug 'elixir-lang/vim-elixir'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'ervandew/supertab'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-fugitive'
 Plug 'vim-scripts/BufOnly.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-unimpaired'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-endwise'
+Plug 'jiangmiao/auto-pairs'
+
+" Web development plugins
+" Plug 'vim-ruby/vim-ruby'
+" Plug 'tpope/vim-rails'
 call plug#end()
 
 filetype plugin indent on
 
+let ayucolor='mirage'
+colorscheme ayu
+
 map <C-n> :NERDTreeToggle<CR>
 map <F2> :set paste<CR>i
+map <silent> <F3> :call BufferList()<CR>
 
-let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 let g:NERDTreeShowHidden=1
-let g:airline_theme='papercolor'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#show_splits = 1
-let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:polyglot_disabled = ['vala', 'thrift', 'systemd', 'sxhkd', 'vcl', 'terraform', 'scala', 'sbt', 'solidity']
-let g:indentLine_setColors = 0
-let g:indentLine_enabled = 0
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'gitbranch#name'
+      \ },
+      \ }
+let g:indentLine_enabled = 1
+let g:indentLine_char = '‚ñè'
+let g:indentLine_first_char = '‚ñè'
+let g:indentLine_showFirstIndentLevel = 1
+let g:indentLine_setColors = 1
 let g:indentLine_faster = 1
-let g:indentLine_leadingSpaceEnabled = 1
-let g:indentLine_leadingSpaceChar = '.'
+
+hi ColorColumn guibg=#212121 ctermbg=238
 
 imap <Up> <nop>
 imap <Down> <nop>
@@ -63,13 +75,20 @@ map <Up> <nop>
 map <Down> <nop>
 map <Left> :vertical resize -5<CR>
 map <Right> :vertical resize +5<CR>
+map <S-C-j> <Plug>(is-scroll-f)
+map <S-C-k> <Plug>(is-scroll-b)
 nmap <C-k> [e
 nmap <C-j> ]e
 nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
 nmap <silent> <C-s> :StripWhitespace<CR> :w<CR>
+nmap <C-p> :FZF<CR>
+nmap <leader>f :Ag<CR>
+nmap <leader>b :Buffers<CR>
+nmap <silent> <leader>t :TestFile<CR>
+nmap <silent> <leader>a :TestSuite<CR>
+nmap <silent> <leader>g :TestVisit<CR>
 
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
 au InsertLeave * set nopaste
-
