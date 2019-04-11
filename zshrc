@@ -95,6 +95,9 @@ alias zrff="zeus rspec --fail-fast"
 alias start-rabbitmq="/usr/local/sbin/rabbitmq-server start"
 alias nvim="stty stop '' -ixoff ; nvim"
 alias vimr="stty stop '' -ixoff ; vimr"
+alias dc="docker-compose run --rm"
+alias diff="colordiff"
+alias ra="approvals verify -d 'code --diff' -a"
 
 . ~/OTP/20.2/activate
 export PATH="$PATH:$HOME/.kerl"
