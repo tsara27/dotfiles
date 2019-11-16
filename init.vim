@@ -1,47 +1,45 @@
 set autoread
-set noswapfile
-set nobackup
-set nowritebackup
-set hidden
 set background=dark
-set number relativenumber
-set nu rnu
-set history=50
-set textwidth=80
-set colorcolumn=+1
-set termguicolors
-set expandtab softtabstop=2 shiftwidth=2
-set linespace=1
-set guicursor=n-v-c:blinkon0
 set backspace=2
+set clipboard=unnamedplus
+set colorcolumn=+1
+set cursorline
+set expandtab softtabstop=2 shiftwidth=2
+set guicursor=n-v-c:blinkon0
+set hidden
+set history=50
+set lazyredraw
+set linespace=1
+set nobackup
+set noswapfile
+set nowritebackup
+set nu rnu
+set number relativenumber
+set termguicolors
+set textwidth=80
+set ttyfast
 
 call plug#begin('~/.vim/plugged')
-" Plug 'scrooloose/nerdtree'
+Plug 'Yggdroot/indentLine'
+Plug 'ayu-theme/ayu-vim'
+Plug 'bling/vim-bufferline'
 Plug 'easymotion/vim-easymotion'
-Plug 'dracula/vim'
+Plug 'ervandew/supertab'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
+Plug 'janko-m/vim-test'
+Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
-Plug 'bling/vim-bufferline'
-Plug 'janko-m/vim-test'
-Plug 'ayu-theme/ayu-vim'
-Plug 'slim-template/vim-slim'
-Plug 'posva/vim-vue'
-Plug 'elixir-lang/vim-elixir'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'tpope/vim-surround'
-Plug 'vim-scripts/BufOnly.vim'
-Plug 'Yggdroot/indentLine'
-Plug 'tpope/vim-unimpaired'
-Plug 'ervandew/supertab'
-Plug 'tpope/vim-endwise'
-Plug 'jiangmiao/auto-pairs'
+Plug 'scrooloose/nerdtree'
+Plug 'slim-template/vim-slim'
 Plug 'terryma/vim-multiple-cursors'
-
-" Web development plugins
-" Plug 'vim-ruby/vim-ruby'
-" Plug 'tpope/vim-rails'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-scripts/BufOnly.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -53,7 +51,7 @@ map <C-n> :NERDTreeToggle<CR>
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
 
-" let g:NERDTreeShowHidden=1
+let g:NERDTreeShowHidden=1
 let g:lightline = {
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
@@ -72,12 +70,14 @@ let g:indentLine_faster = 1
 let loaded_netrwPlugin = 1
 hi ColorColumn guibg=#212121 ctermbg=238
 
+" Disable plain arrow keys
 imap <Up> <nop>
 imap <Down> <nop>
 imap <Left> <nop>
 imap <Right> <nop>
 map <Up> <nop>
 map <Down> <nop>
+" Resize key binding
 map <Left> :vertical resize -5<CR>
 map <Right> :vertical resize +5<CR>
 map <S-C-j> <Plug>(is-scroll-f)
@@ -95,6 +95,30 @@ nmap <leader>b :Buffers<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
+" Split window
+nmap ss :split<Return><C-w>w
+nmap sv :vsplit<Return><C-w>w
+" Multiple cursor mapping
+let g:multi_cursor_use_default_mapping=0
+" Move window
+map s<left> <C-w>h
+map s<up> <C-w>k
+map s<down> <C-w>j
+map s<right> <C-w>l
+map sh <C-w>h
+map sk <C-w>k
+map sj <C-w>j
+map sl <C-w>l
+" Default mapping
+let g:multi_cursor_start_word_key      = '<leader>n'
+let g:multi_cursor_select_all_word_key = '<A-n>'
+let g:multi_cursor_start_key           = 'g<C-n>'
+let g:multi_cursor_select_all_key      = 'g<A-n>'
+let g:multi_cursor_next_key            = '<leader>n'
+let g:multi_cursor_prev_key            = '<C-p>'
+let g:multi_cursor_skip_key            = '<C-x>'
+let g:multi_cursor_quit_key            = '<Esc>'
+
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
 au InsertLeave * set nopaste
