@@ -8,6 +8,7 @@ set expandtab softtabstop=2 shiftwidth=2
 set guicursor=n-v-c:blinkon0
 set hidden
 set history=50
+set ignorecase
 set lazyredraw
 set linespace=3
 set nobackup
@@ -20,7 +21,6 @@ set textwidth=80
 set ttyfast
 
 call plug#begin('~/.vim/plugged')
-Plug 'Yggdroot/indentLine'
 Plug 'ayu-theme/ayu-vim'
 Plug 'bling/vim-bufferline'
 Plug 'easymotion/vim-easymotion'
@@ -62,12 +62,7 @@ let g:lightline = {
       \   'gitbranch': 'gitbranch#name'
       \ },
       \ }
-let g:indentLine_enabled = 1
-let g:indentLine_char = '¬¶'
-let g:indentLine_first_char = '¬¶'
-let g:indentLine_showFirstIndentLevel = 1
-let g:indentLine_setColors = 1
-let g:indentLine_faster = 1
+
 let loaded_netrwPlugin = 1
 hi ColorColumn guibg=#212121 ctermbg=238
 
