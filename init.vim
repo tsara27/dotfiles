@@ -9,7 +9,7 @@ set guicursor=n-v-c:blinkon0
 set hidden
 set history=50
 set lazyredraw
-set linespace=1
+set linespace=3
 set nobackup
 set noswapfile
 set nowritebackup
@@ -45,9 +45,10 @@ call plug#end()
 filetype plugin indent on
 
 let ayucolor='mirage'
+"let ayucolor='light'
 colorscheme ayu
 
-map <C-n> :NERDTreeToggle<CR>
+map <C-space> :NERDTreeToggle<CR>
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
 
@@ -77,6 +78,7 @@ imap <Left> <nop>
 imap <Right> <nop>
 map <Up> <nop>
 map <Down> <nop>
+
 " Resize key binding
 map <Left> :vertical resize -5<CR>
 map <Right> :vertical resize +5<CR>
@@ -88,18 +90,18 @@ nmap <C-k> [e
 nmap <C-j> ]e
 nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
-nmap <silent> <C-s> :StripWhitespace<CR> :w<CR>
+nmap <C-s> :StripWhitespace<CR> :w<CR>
 nmap <C-p> :FZF<CR>
 nmap <leader>f :Ag<CR>
 nmap <leader>b :Buffers<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
+
 " Split window
 nmap ss :split<Return><C-w>w
 nmap sv :vsplit<Return><C-w>w
-" Multiple cursor mapping
-let g:multi_cursor_use_default_mapping=0
+
 " Move window
 map s<left> <C-w>h
 map s<up> <C-w>k
@@ -109,16 +111,8 @@ map sh <C-w>h
 map sk <C-w>k
 map sj <C-w>j
 map sl <C-w>l
-" Default mapping
-let g:multi_cursor_start_word_key      = '<leader>n'
-let g:multi_cursor_select_all_word_key = '<A-n>'
-let g:multi_cursor_start_key           = 'g<C-n>'
-let g:multi_cursor_select_all_key      = 'g<A-n>'
-let g:multi_cursor_next_key            = '<leader>n'
-let g:multi_cursor_prev_key            = '<C-p>'
-let g:multi_cursor_skip_key            = '<C-x>'
-let g:multi_cursor_quit_key            = '<Esc>'
 
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
+
 au InsertLeave * set nopaste
