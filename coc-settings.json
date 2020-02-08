@@ -1,0 +1,6 @@
+{
+  "codeLens.enable": true,
+  "solargraph.completion": true,
+  "yank.limit": 15,
+  "yank.highlight.enable": false
+}
