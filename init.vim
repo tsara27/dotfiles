@@ -4,8 +4,10 @@ set backspace=2
 set clipboard=unnamedplus
 set colorcolumn=+1
 set cursorline
+set encoding=UTF-8
 set expandtab softtabstop=2 shiftwidth=2
 set guicursor=n-v-c:blinkon0
+set guifont=1
 set hidden
 set history=50
 set ignorecase
@@ -21,9 +23,10 @@ set textwidth=80
 set ttyfast
 
 call plug#begin('~/.vim/plugged')
+Plug 'Shougo/defx.nvim'
+Plug 'ryanoasis/vim-devicons'
 Plug 'ayu-theme/ayu-vim'
 Plug 'bling/vim-bufferline'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'easymotion/vim-easymotion'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
@@ -31,25 +34,30 @@ Plug 'janko-m/vim-test'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'scrooloose/nerdtree'
 Plug 'slim-template/vim-slim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'herrbischoff/cobalt2.vim'
 call plug#end()
 
 filetype plugin indent on
 
 let ayucolor='mirage'
+let g:airline_powerline_fonts = 1
 "let ayucolor='light'
 colorscheme ayu
 
-map <C-space> :NERDTreeToggle<CR>
+" map <C-space> :NERDTreeToggle<CR>
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
 
+let g:webdevicons_enable = 1
+let g:webdevicons_enable_airline_statusline = 1
 " NERDTree
 let g:NERDTreeShowHidden=1
 let g:lightline = {
@@ -114,6 +122,7 @@ nmap <leader>b :Buffers<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
+
 " Open coc yank lis
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
 
@@ -131,6 +140,57 @@ map sk <C-w>k
 map sj <C-w>j
 map sl <C-w>l
 
+call defx#custom#option('_', {
+      \ 'winwidth': 35,
+      \ 'split': 'vertical',
+      \ 'show_ignored_files': 0,
+      \ 'buffer_name': 'defxplorer',
+      \ 'toggle': 1,
+      \ 'resume': 1
+      \ })
+map <C-space> :Defx <CR>
+
+" Defx
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
+  nnoremap <silent><buffer><expr> c defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m defx#do_action('move')
+  nnoremap <silent><buffer><expr> p defx#do_action('paste')
+  nnoremap <silent><buffer><expr> l defx#do_action('open')
+  nnoremap <silent><buffer><expr> E defx#do_action('open', 'vsplit')
+  nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> o defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N defx#do_action('new_file')
+  nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
+  nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:indent:icon:filename:type:size:time')
+  nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr> d defx#do_action('remove')
+  nnoremap <silent><buffer><expr> r defx#do_action('rename')
+  nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ; defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
+endfunction
+
+call defx#custom#column('icon', {
+      \ 'directory_icon': '',
+      \ 'opened_icon': '',
+      \ 'root_icon': '📁',
+      \ })
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
 
