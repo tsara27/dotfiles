@@ -24,7 +24,6 @@ set ttyfast
 
 call plug#begin('~/.vim/plugged')
 Plug 'Shougo/defx.nvim'
-Plug 'ryanoasis/vim-devicons'
 Plug 'ayu-theme/ayu-vim'
 Plug 'bling/vim-bufferline'
 Plug 'easymotion/vim-easymotion'
@@ -37,12 +36,12 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'ryanoasis/vim-devicons'
 Plug 'slim-template/vim-slim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
-Plug 'herrbischoff/cobalt2.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -62,7 +61,7 @@ let loaded_netrwPlugin = 1
 hi ColorColumn guibg=#212121 ctermbg=238
 
 " Coc Default Config
-let g:coc_global_extensions = ['coc-solargraph', 'coc-css', 'coc-html', 'coc-json',
+let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json',
                              \ 'coc-tsserver', 'coc-yaml', 'coc-elixir', 'coc-yank',
                              \ 'coc-snippets']
 
@@ -180,6 +179,7 @@ call defx#custom#column('icon', {
       \ 'opened_icon': '',
       \ 'root_icon': '📁',
       \ })
+      
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
 
