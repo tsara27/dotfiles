@@ -52,25 +52,13 @@ let g:airline_powerline_fonts = 1
 "let ayucolor='light'
 colorscheme ayu
 
-" map <C-space> :NERDTreeToggle<CR>
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_airline_statusline = 1
-" NERDTree
-let g:NERDTreeShowHidden=1
-let g:lightline = {
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'gitbranch#name'
-      \ },
-      \ }
-
 let loaded_netrwPlugin = 1
+
 hi ColorColumn guibg=#212121 ctermbg=238
 
 " Coc Default Config
@@ -140,8 +128,9 @@ map sk <C-w>k
 map sj <C-w>j
 map sl <C-w>l
 
+
 call defx#custom#option('_', {
-      \ 'winwidth': 35,
+      \ 'winwidth': 30,
       \ 'split': 'vertical',
       \ 'show_ignored_files': 0,
       \ 'buffer_name': 'defxplorer',
