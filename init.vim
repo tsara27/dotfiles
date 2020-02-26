@@ -42,6 +42,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'yuki-ycino/fzf-preview.vim'
 call plug#end()
 
 filetype plugin indent on
@@ -81,6 +82,8 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
+let g:fzf_preview_use_floating_window = 1
+
 " Enable enter to complete snippet or confirm autocompletion
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
@@ -103,9 +106,9 @@ nmap <C-j> ]e
 nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
 nmap <C-s> :StripWhitespace<CR> :w<CR>
-nmap <C-p> :FZF<CR>
+nmap <C-p> :FzfPreviewProjectFiles<CR>
 nmap <leader>f :Ag<CR>
-nmap <leader>b :Buffers<CR>
+nmap <leader>b :FzfPreviewBuffers<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
@@ -179,7 +182,6 @@ call defx#custom#column('icon', {
       \ 'opened_icon': '',
       \ 'root_icon': '📁',
       \ })
-      
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
 
