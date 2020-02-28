@@ -99,8 +99,7 @@ map <Left> :vertical resize -5<CR>
 map <Right> :vertical resize +5<CR>
 map <S-C-j> <Plug>(is-scroll-f)
 map <S-C-k> <Plug>(is-scroll-b)
-map <leader>e :!ls<CR>:e
-map <leader>v :!approvals verify -d vimdiff -a<CR>
+nmap <leader>c :noh<CR>
 nmap <C-k> [e
 nmap <C-j> ]e
 nmap <leader>l :bn<CR>
