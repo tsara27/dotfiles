@@ -34,7 +34,9 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
+Plug 'kchmck/vim-coffee-script'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'nightsense/nemo'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'ryanoasis/vim-devicons'
 Plug 'slim-template/vim-slim'
@@ -50,7 +52,7 @@ filetype plugin indent on
 let ayucolor='mirage'
 let g:airline_powerline_fonts = 1
 "let ayucolor='light'
-colorscheme ayu
+colorscheme nemo-dark
 
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
@@ -83,6 +85,7 @@ function! s:check_back_space() abort
 endfunction
 
 let g:fzf_preview_use_floating_window = 1
+let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading'
 
 " Enable enter to complete snippet or confirm autocompletion
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -104,13 +107,17 @@ nmap <C-k> [e
 nmap <C-j> ]e
 nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
-nmap <C-s> :StripWhitespace<CR> :w<CR>
 nmap <C-p> :FzfPreviewProjectFiles<CR>
-nmap <leader>f :Ag<CR>
+nmap <leader>f :FzfPreviewProjectGrep <space>''<CR>
 nmap <leader>b :FzfPreviewBuffers<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
+
+" Save when insert mode
+map <silent> <C-s> :StripWhitespace<CR><ESC> :w<CR>
+nmap <silent> <C-s> :StripWhitespace<CR><ESC> :w<CR>
+imap <silent> <C-s> <ESC>:StripWhitespace<CR><ESC> :w<CR>
 
 " Open coc yank lis
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
