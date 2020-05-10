@@ -140,7 +140,7 @@ map sl <C-w>l
 call defx#custom#option('_', {
       \ 'winwidth': 30,
       \ 'split': 'vertical',
-      \ 'show_ignored_files': 0,
+      \ 'show_ignored_files': 1,
       \ 'buffer_name': 'defxplorer',
       \ 'toggle': 1,
       \ 'resume': 1
