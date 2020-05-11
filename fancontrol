@@ -1,0 +1,15 @@
+# This file was created by Fancontrol-GUI
+# This is config for my PC
+# Put this file on /etc/fancontrol
+INTERVAL=10
+DEVPATH=hwmon4=devices/platform/nct6775.656 hwmon5=devices/pci0000:00/0000:00:03.1/0000:0e:00.0/0000:0f:00.0/0000:10:00.0 
+DEVNAME=hwmon4=nct6798 hwmon5=amdgpu 
+FCTEMPS=hwmon4/pwm1=hwmon4/temp2_input hwmon4/pwm2=hwmon4/temp2_input hwmon4/pwm3=hwmon4/temp2_input hwmon4/pwm4=hwmon4/temp2_input hwmon4/pwm5=hwmon4/temp2_input hwmon4/pwm6=hwmon4/temp2_input hwmon4/pwm7=hwmon4/temp2_input hwmon5/pwm1=hwmon5/temp3_input 
+FCFANS=hwmon4/pwm1=hwmon4/fan1_input hwmon4/pwm2=hwmon4/fan2_input hwmon4/pwm3=hwmon4/fan3_input hwmon4/pwm4=hwmon4/fan4_input hwmon4/pwm5=hwmon4/fan5_input hwmon4/pwm6=hwmon4/fan6_input hwmon4/pwm7=hwmon4/fan7_input hwmon5/pwm1=hwmon5/fan1_input 
+MINTEMP=hwmon4/pwm1=50 hwmon4/pwm2=50 hwmon4/pwm3=51 hwmon4/pwm4=50 hwmon4/pwm5=50 hwmon4/pwm6=50 hwmon4/pwm7=50 hwmon5/pwm1=50 
+MAXTEMP=hwmon4/pwm1=65 hwmon4/pwm2=65 hwmon4/pwm3=65 hwmon4/pwm4=66 hwmon4/pwm5=65 hwmon4/pwm6=65 hwmon4/pwm7=65 hwmon5/pwm1=65 
+MINSTART=hwmon4/pwm1=255 hwmon4/pwm2=255 hwmon4/pwm3=255 hwmon4/pwm4=255 hwmon4/pwm5=255 hwmon4/pwm6=145 hwmon4/pwm7=255 hwmon5/pwm1=255 
+MINSTOP=hwmon4/pwm1=26 hwmon4/pwm2=39 hwmon4/pwm3=39 hwmon4/pwm4=39 hwmon4/pwm5=40 hwmon4/pwm6=39 hwmon4/pwm7=50 hwmon5/pwm1=77 
+MINPWM=hwmon4/pwm1=26 hwmon4/pwm2=39 hwmon4/pwm3=39 hwmon4/pwm4=39 hwmon4/pwm5=40 hwmon4/pwm6=39 hwmon4/pwm7=50 hwmon5/pwm1=77 
+MAXPWM=hwmon4/pwm1=76 hwmon4/pwm2=77 hwmon4/pwm3=77 hwmon4/pwm4=78 hwmon4/pwm5=78 hwmon4/pwm6=77 hwmon4/pwm7=80 hwmon5/pwm1=153 
+AVERAGE=hwmon4/pwm1=1 hwmon4/pwm2=1 hwmon4/pwm3=1 hwmon4/pwm4=1 hwmon4/pwm5=1 hwmon4/pwm6=1 hwmon4/pwm7=1 hwmon5/pwm1=1 
