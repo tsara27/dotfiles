@@ -1,3 +1,4 @@
+"set guifont=Jet\ Brains\ Mono\ Nerd\ Font:h14
 set autoread
 set background=dark
 set backspace=2
@@ -6,13 +7,13 @@ set colorcolumn=+1
 set cursorline
 set encoding=UTF-8
 set expandtab softtabstop=2 shiftwidth=2
-set guicursor=n-v-c:blinkon0
-set guifont=1
+set guifont=FiraCode:h12
 set hidden
 set history=50
 set ignorecase
+set iskeyword+=\-
 set lazyredraw
-set linespace=3
+set linespace=5
 set nobackup
 set noswapfile
 set nowritebackup
@@ -27,6 +28,8 @@ Plug 'Shougo/defx.nvim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'bling/vim-bufferline'
 Plug 'easymotion/vim-easymotion'
+Plug 'elixir-editors/vim-elixir'
+Plug 'herrbischoff/cobalt2.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'janko-m/vim-test'
@@ -38,7 +41,9 @@ Plug 'kchmck/vim-coffee-script'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'nightsense/nemo'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'reedes/vim-colors-pencil'
 Plug 'ryanoasis/vim-devicons'
+Plug 'slashmili/alchemist.vim'
 Plug 'slim-template/vim-slim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
@@ -49,24 +54,37 @@ call plug#end()
 
 filetype plugin indent on
 
-let ayucolor='mirage'
-let g:airline_powerline_fonts = 1
+"COLORSCHEME
+"let ayucolor='mirage'
 "let ayucolor='light'
-colorscheme nemo-dark
+"colorscheme pencil
+"colorscheme miami-night
+colorscheme trial
 
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
+
+" Neovide configuration
+"let g:neovide_fullscreen=v:true
+let g:neovide_cursor_vfx_particle_phase=1.5
+let g:neovide_cursor_animation_length=0.1
+let g:neovide_cursor_vfx_mode = 'railgun'
+"let g:neovide_cursor_antialiasing=v:true
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_airline_statusline = 1
 let loaded_netrwPlugin = 1
 
-hi ColorColumn guibg=#212121 ctermbg=238
+hi ColorColumn guibg=#434343 ctermbg=238
+
+let g:lightline = {
+      \ 'colorscheme': 'PaperColor',
+      \ }
 
 " Coc Default Config
 let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json',
-                             \ 'coc-tsserver', 'coc-yaml', 'coc-elixir', 'coc-yank',
-                             \ 'coc-snippets']
+                             \ 'coc-tsserver', 'coc-yaml', 'coc-fzf-preview',
+                             \ 'coc-snippets', 'coc-yank']
 
 let g:coc_snippet_next = '<Down>'
 let g:coc_snippet_prev = '<Up>'
@@ -107,9 +125,9 @@ nmap <C-k> [e
 nmap <C-j> ]e
 nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
-nmap <C-p> :FzfPreviewProjectFiles<CR>
-nmap <leader>f :FzfPreviewProjectGrep <space>''<CR>
-nmap <leader>b :FzfPreviewBuffers<CR>
+nmap <C-p> :CocCommand fzf-preview.ProjectFiles<CR>
+nmap <leader>f :CocCommand fzf-preview.ProjectGrep <space>''<CR>
+nmap <leader>b :CocCommand fzf-preview.Buffers<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
