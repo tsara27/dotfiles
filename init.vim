@@ -38,7 +38,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neoclide/coc.nvim', { 'merged': 0, 'rev': 'release'}
 Plug 'nightsense/nemo'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'reedes/vim-colors-pencil'
@@ -49,7 +49,7 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
-Plug 'yuki-ycino/fzf-preview.vim'
+Plug 'yuki-ycino/fzf-preview.vim', { 'do': 'yarn install' }
 call plug#end()
 
 filetype plugin indent on
@@ -89,8 +89,9 @@ let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json',
 let g:coc_snippet_next = '<Down>'
 let g:coc_snippet_prev = '<Up>'
 
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+" FZF Preview
+let g:fzf_preview_lines_command = 'bat --color=always --style=grid --theme=Dracula --plain'
+
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
       \ <SID>check_back_space() ? "\<TAB>" :
@@ -101,9 +102,6 @@ function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
-let g:fzf_preview_use_floating_window = 1
-let g:fzf_preview_grep_cmd = 'rg --line-number --no-heading'
 
 " Enable enter to complete snippet or confirm autocompletion
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
@@ -153,7 +151,6 @@ map sh <C-w>h
 map sk <C-w>k
 map sj <C-w>j
 map sl <C-w>l
-
 
 call defx#custom#option('_', {
       \ 'winwidth': 30,
