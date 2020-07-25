@@ -38,6 +38,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
+Plug 'kristijanhusak/defx-icons'
 Plug 'neoclide/coc.nvim', { 'merged': 0, 'rev': 'release'}
 Plug 'nightsense/nemo'
 Plug 'ntpeters/vim-better-whitespace'
@@ -160,7 +161,7 @@ call defx#custom#option('_', {
       \ 'toggle': 1,
       \ 'resume': 1
       \ })
-map <C-space> :Defx <CR>
+map <C-space> :Defx -columns=indent:icons:filename:type<CR>
 
 " Defx
 autocmd FileType defx call s:defx_my_settings()
@@ -198,11 +199,11 @@ function! s:defx_my_settings() abort
   nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
 endfunction
 
-call defx#custom#column('icon', {
-      \ 'directory_icon': '',
-      \ 'opened_icon': '',
-      \ 'root_icon': '📁',
-      \ })
+"call defx#custom#column('icon', {
+"      \ 'directory_icon': '',
+"      \ 'opened_icon': '',
+"      \ 'root_icon': '📁',
+"      \ })
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
 
