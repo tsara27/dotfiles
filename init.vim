@@ -7,7 +7,7 @@ set colorcolumn=+1
 set cursorline
 set encoding=UTF-8
 set expandtab softtabstop=2 shiftwidth=2
-set guifont=FiraCode:h12
+set guifont=Jet\ Brains\ Mono\ Nerd\ Font:h12
 set hidden
 set history=50
 set ignorecase
@@ -29,7 +29,6 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'bling/vim-bufferline'
 Plug 'easymotion/vim-easymotion'
 Plug 'elixir-editors/vim-elixir'
-Plug 'herrbischoff/cobalt2.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'janko-m/vim-test'
@@ -40,9 +39,7 @@ Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
 Plug 'kristijanhusak/defx-icons'
 Plug 'neoclide/coc.nvim', { 'merged': 0, 'rev': 'release'}
-Plug 'nightsense/nemo'
 Plug 'ntpeters/vim-better-whitespace'
-Plug 'reedes/vim-colors-pencil'
 Plug 'ryanoasis/vim-devicons'
 Plug 'slashmili/alchemist.vim'
 Plug 'slim-template/vim-slim'
@@ -50,17 +47,17 @@ Plug 'terryma/vim-multiple-cursors'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
-Plug 'yuki-ycino/fzf-preview.vim', { 'do': 'yarn install' }
 call plug#end()
 
 filetype plugin indent on
 
 "COLORSCHEME
-"let ayucolor='mirage'
+let ayucolor='mirage'
 "let ayucolor='light'
 "colorscheme pencil
 "colorscheme miami-night
-colorscheme trial
+"colorscheme trial
+colorscheme ayu
 
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
@@ -84,14 +81,14 @@ let g:lightline = {
 
 " Coc Default Config
 let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json',
-                             \ 'coc-tsserver', 'coc-yaml', 'coc-fzf-preview',
+                             \ 'coc-tsserver', 'coc-yaml',
                              \ 'coc-snippets', 'coc-yank']
 
 let g:coc_snippet_next = '<Down>'
 let g:coc_snippet_prev = '<Up>'
 
-" FZF Preview
-let g:fzf_preview_lines_command = 'bat --color=always --style=grid --theme=Dracula --plain'
+" FZF
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -124,9 +121,9 @@ nmap <C-k> [e
 nmap <C-j> ]e
 nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
-nmap <C-p> :CocCommand fzf-preview.ProjectFiles<CR>
-nmap <leader>f :CocCommand fzf-preview.ProjectGrep <space>''<CR>
-nmap <leader>b :CocCommand fzf-preview.Buffers<CR>
+nmap <C-p> :Files <CR>
+nmap <leader>f :Rg <CR>
+nmap <leader>b :Buffers <CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>g :TestVisit<CR>
