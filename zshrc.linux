@@ -1,0 +1,131 @@
+#path to your oh-my-zsh installation.
+export ZSH=/home/tsara27/.oh-my-zsh
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins+=(git)
+
+# User configuration
+
+# export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+# export MANPATH="/usr/local/man:$MANPATH"
+
+source $ZSH/oh-my-zsh.sh
+source ~/.cocoa_docker_env
+# autoload -U promptinit; promptinit
+# prompt pure
+
+# source $HOME/.cargo/env
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Bundle config
+export BUNDLE_GITHUB__HTTPS=true
+export GIT_EDITOR=nvim
+
+# NVIM true color
+export NVIM_TUI_ENABLE_TRUE_COLOR=1
+
+# Set personal aliases, overriding those provided by oh-my-zsh libs,
+# plugins, and themes. Aliases can be placed here, though oh-my-zsh
+# users are encouraged to define aliases within the ZSH_CUSTOM folder.
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias b="bash"
+alias bex="bundle exec"
+alias br="bundle exec rspec"
+alias cl="clear"
+alias gadd="git add"
+alias gt="git status"
+alias rtest="rake test"
+alias towork="cd ~/Works"
+alias zr="zeus rspec"
+alias zrff="zeus rspec --fail-fast"
+alias start-rabbitmq="/usr/local/sbin/rabbitmq-server start"
+alias nvim="stty stop '' -ixoff ; nvim"
+alias vimr="stty stop '' -ixoff ; vimr"
+alias dc="docker-compose run --rm"
+alias diff="colordiff"
+alias ra="approvals verify -d 'code --diff' -a"
+alias pgstart="sudo systemctl start postgresql.service"
+# Tmux aliases
+alias tkill="tmux kill-session -t"
+alias tls="tmux ls"
+alias tatt="tmux attach"
+alias restartgnome="killall -SIGQUIT gnome-shell"
+# Remove unused branches
+alias git_clean="git branch --merged | egrep -v \"(^\*|master|staging)\" | xargs git branch -d"
+
+
+# . ~/OTP/20.2/activate
+#export PATH="$PATH:$HOME/.kerl"
+
+# Activate Erlang
+. ~/.kerl/23.0.2/activate
+
+
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+export FZF_DEFAULT_OPTS='--height 100% --layout=reverse --border'
+test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export PATH="/usr/local/sbin:$PATH"
+export PATH="/usr/local/opt/qt@5.5/bin:$PATH"
+export PATH="/home/tsara27/.cargo/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[[ -f ~/.Xmodmap ]] && xmodmap ~/.Xmodmap #Autoload mapping
+
+# Satori git config
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=1
+
+# Autoload nvm use
+autoload -U add-zsh-hook
+
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+
+add-zsh-hook chpwd load-nvmrc
+
+# imagemagick brew
+export LDFLAGS="-L/home/linuxbrew/.linuxbrew/opt/imagemagick@6/lib"
+export CPPFLAGS="-I/home/linuxbrew/.linuxbrew/opt/imagemagick@6/include"
+
+# Set key rate
+xset r rate 300 60
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# Add rbenv to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
+eval "$(rbenv init -)"
+eval "$(starship init zsh)"
+export PATH="/home/linuxbrew/.linuxbrew/opt/imagemagick@6/bin:$PATH"
