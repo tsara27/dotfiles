@@ -1,0 +1,37 @@
+# List of plugins
+set -g @plugin 'tmux-plugins/tpm'
+set -g @plugin 'tmux-plugins/tmux-sensible'
+set -g @plugin 'tmux-plugins/tmux-resurrect'
+
+# Set to ZSH
+set-option -g default-shell /usr/bin/zsh
+
+# Set prefix to Ctrl+a
+set -g prefix C-a
+# Set tmux to be more responsive
+set -s escape-time 1
+# Set window index to 1
+set -g base-index 1
+# Restoring neovim session
+set -g @resurrect-strategy-nvim 'session'
+# Don't restore any program
+set -g @resurrect-processes 'false'
+# Turn on mouse support
+set -g mouse on
+# Support copy paste gnome terminal
+#set-option -s set-clipboard off
+# Fix vim color issue
+set-option -g default-terminal "screen-256color"
+set -ga terminal-overrides ",*256col*:Tc"
+set -sa terminal-overrides ",*256col*:Tc"
+#set -sa terminal-overrides ",*256col*:RGB"
+# History limit
+set-option -g history-limit 1000
+
+bind h select-pane -L
+bind j select-pane -D
+bind k select-pane -U
+bind l select-pane -R
+
+# Initialize TMUX plugin manager (keep this line at the very bottom of tmux.conf)
+run -b '~/.tmux/plugins/tpm/tpm'
