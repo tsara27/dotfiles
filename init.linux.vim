@@ -14,6 +14,7 @@ set ignorecase
 set iskeyword+=\-
 set lazyredraw
 set linespace=5
+set mouse=a
 set nobackup
 set noswapfile
 set nowritebackup
@@ -75,6 +76,7 @@ let g:neovide_cursor_trail_length=0
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_airline_statusline = 1
 let loaded_netrwPlugin = 1
+let g:defx_icons_column_length = 2
 
 hi ColorColumn guibg=#434343 ctermbg=238
 
