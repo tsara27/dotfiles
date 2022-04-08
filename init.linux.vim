@@ -1,3 +1,4 @@
+
 "set guifont=Jet\ Brains\ Mono\ Nerd\ Font:h14
 set autoread
 set background=dark
@@ -25,12 +26,19 @@ set textwidth=80
 set ttyfast
 
 call plug#begin('~/.vim/plugged')
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'Mofiqul/dracula.nvim'
 Plug 'Shougo/defx.nvim'
+Plug 'arcticicestudio/nord-vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'bling/vim-bufferline'
 Plug 'easymotion/vim-easymotion'
 Plug 'elixir-editors/vim-elixir'
-Plug 'ghifarit53/tokyonight-vim'
+Plug 'folke/tokyonight.nvim'
+Plug 'folke/trouble.nvim'
+Plug 'glepnir/lspsaga.nvim'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
 Plug 'janko-m/vim-test'
@@ -40,8 +48,15 @@ Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
 Plug 'kristijanhusak/defx-icons'
+Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'neovim/nvim-lspconfig'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-fzf-native.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'pangloss/vim-javascript'
 Plug 'ryanoasis/vim-devicons'
 Plug 'slashmili/alchemist.vim'
 Plug 'slim-template/vim-slim'
@@ -50,6 +65,17 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
 call plug#end()
+
+" Lua configuration
+lua << EOF
+require "telescope".setup {
+  defaults = {
+    preview = {
+      treesitter = false
+    }
+  }
+}
+EOF
 
 filetype plugin indent on
 
@@ -61,6 +87,8 @@ let g:tokyonight_style='storm'
 "colorscheme miami-night
 "colorscheme trial
 colorscheme tokyonight
+"colorscheme nord
+"colorscheme dracula
 
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
@@ -86,8 +114,9 @@ let g:lightline = {
 
 " Coc Default Config
 let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json',
-                             \ 'coc-tsserver', 'coc-yaml',
-                             \ 'coc-snippets', 'coc-yank']
+                             \ 'coc-tsserver', 'coc-yaml', 'coc-vue',
+                             \ 'coc-prettier', 'coc-emmet', 'coc-json',
+                             \ 'coc-snippets', 'coc-yank', 'coc-tslint']
 
 let g:coc_snippet_next = '<Down>'
 let g:coc_snippet_prev = '<Up>'
@@ -126,9 +155,6 @@ nmap <C-k> [e
 nmap <C-j> ]e
 nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
-nmap <C-p> :Files <CR>
-nmap <leader>f :Rg <CR>
-nmap <leader>b :Buffers <CR>
 nmap <silent> <leader>d :GFiles?<CR>
 nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
@@ -155,6 +181,23 @@ map sh <C-w>h
 map sk <C-w>k
 map sj <C-w>j
 map sl <C-w>l
+
+" FZF finder
+"nmap <C-p> :Files <CR>
+"nmap <leader>f :Rg <CR>
+"nmap <leader>b :Buffers <CR>
+
+" Telescope file finder - like fzf
+" Using Lua function
+"nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
+"nnoremap <leader>f <cmd>lua require('telescope.builtin').live_grep()<cr>
+"nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
+"nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+" Find files using Telescope command-line sugar.
+nnoremap <C-p>      <cmd>Telescope find_files<cr>
+nnoremap <leader>f  <cmd>Telescope live_grep<cr>
+nnoremap <leader>b  <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 
 call defx#custom#option('_', {
       \ 'winwidth': 30,
