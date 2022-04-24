@@ -111,11 +111,12 @@ font:
     #   - (Windows) Consolas
     #family: 'Fira Code'
   normal:
-    family: 'Jet Brains Mono Nerd Font'
+    family: 'OperatorMono Nerd Font'
+    #family: 'Jet Brains Mono Nerd Font'
     #family: 'FiraCode'
 
     # The `style` can be specified to pick a specific face.
-    style: Medium
+    style: 'Book'
 
   # Bold font face
   #bold:
@@ -126,7 +127,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    #style: Bold
+    #style: 'Medium'
 
   # Italic font face
   #italic:
@@ -137,7 +138,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    #style: Italic
+    #style: 'Medium Italic'
 
   # Bold italic font face
   #bold_italic:
@@ -148,10 +149,10 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    #style: Bold Italic
+    #style: 'Medium Italic'
 
   # Point size
-  size: 9
+  size: 10
 
   # Offset is the extra space around each character. `offset.y` can be thought of
   # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
@@ -278,6 +279,85 @@ schemes:
       cyan: '#6d96a5'
       white: '#aeb3bb'
 
+  fairy-floss: &fairy-floss
+    primary:
+      background: '#5a5475'
+      foreground: '#f8f8f2'
+    cursor:
+      text: '#f8f8f2'
+      cursor: '#c7b7c7'
+    normal:
+      black: '#3b3a32'
+      red: '#f1756f'
+      green: '#6de874'
+      yellow: '#e6c000'
+      blue: '#a381ff'
+      magenta: '#ff87b1'
+      cyan: '#7ef5b8'
+      white: '#c7b7c7'
+    bright:
+      black: '#685868'
+      red: '#ff9f9a'
+      green: '#7bfa81'
+      yellow: '#ffea00'
+      blue: '#c5a3ff'
+      magenta: '#ffb8d1'
+      cyan: '#c2ffdf'
+      white: '#ffefff'
+
+  dracula: &dracula
+    primary:
+      background: '#282a36'
+      foreground: '#f8f8f2'
+      bright_foreground: '#ffffff'
+    cursor:
+      text: CellBackground
+      cursor: CellForeground
+    vi_mode_cursor:
+      text: CellBackground
+      cursor: CellForeground
+    search:
+      matches:
+        foreground: '#44475a'
+        background: '#50fa7b'
+      focused_match:
+        foreground: '#44475a'
+        background: '#ffb86c'
+      bar:
+        background: '#282a36'
+        foreground: '#f8f8f2'
+    hints:
+      start:
+        foreground: '#282a36'
+        background: '#f1fa8c'
+      end:
+        foreground: '#f1fa8c'
+        background: '#282a36'
+    line_indicator:
+      foreground: None
+      background: None
+    selection:
+      text: CellForeground
+      background: '#44475a'
+    normal:
+      black: '#21222c'
+      red: '#ff5555'
+      green: '#50fa7b'
+      yellow: '#f1fa8c'
+      blue: '#bd93f9'
+      magenta: '#ff79c6'
+      cyan: '#8be9fd'
+      white: '#f8f8f2'
+    bright:
+      black: '#6272a4'
+      red: '#ff6e6e'
+      green: '#69ff94'
+      yellow: '#ffffa5'
+      blue: '#d6acff'
+      magenta: '#ff92df'
+      cyan: '#a4ffff'
+      white: '#ffffff'
+
   tokyo-night: &tokyo-night
     # Default colors
     primary:
@@ -310,29 +390,33 @@ schemes:
     # Default colors
     primary:
       background: '0x24283b'
-      foreground: '0xa9b1d6'
+      foreground: '0xc0caf5'
 
     # Normal colors
     normal:
-      black:   '0x32344a'
+      black:   '0x1D202F'
       red:     '0xf7768e'
       green:   '0x9ece6a'
       yellow:  '0xe0af68'
       blue:    '0x7aa2f7'
-      magenta: '0xad8ee6'
-      cyan:    '0x449dab'
-      white:   '0x9699a8'
+      magenta: '0xbb9af7'
+      cyan:    '0x7dcfff'
+      white:   '0xa9b1d6'
 
     # Bright colors
     bright:
-      black:   '0x444b6a'
-      red:     '0xff7a93'
-      green:   '0xb9f27c'
-      yellow:  '0xff9e64'
-      blue:    '0x7da6ff'
+      black:   '0x414868'
+      red:     '0xf7768e'
+      green:   '0x9ece6a'
+      yellow:  '0xe0af68'
+      blue:    '0x7aa2f7'
       magenta: '0xbb9af7'
-      cyan:    '0x0db9d7'
-      white:   '0xacb0d0'
+      cyan:    '0x7dcfff'
+      white:   '0xc0caf5'
+
+    indexed_colors:
+      - { index: 16, color: '0xff9e64' }
+      - { index: 17, color: '0xdb4b4b' }
 
 colors: *tokyo-night-storm
 

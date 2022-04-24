@@ -1,5 +1,3 @@
-
-"set guifont=Jet\ Brains\ Mono\ Nerd\ Font:h14
 set autoread
 set background=dark
 set backspace=2
@@ -26,31 +24,29 @@ set textwidth=80
 set ttyfast
 
 call plug#begin('~/.vim/plugged')
-Plug 'norcalli/nvim-colorizer.lua'
 Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'Mofiqul/dracula.nvim'
-Plug 'Shougo/defx.nvim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'bling/vim-bufferline'
 Plug 'easymotion/vim-easymotion'
-Plug 'elixir-editors/vim-elixir'
 Plug 'folke/tokyonight.nvim'
 Plug 'folke/trouble.nvim'
 Plug 'glepnir/lspsaga.nvim'
 Plug 'hrsh7th/nvim-cmp'
 Plug 'itchyny/lightline.vim'
 Plug 'itchyny/vim-gitbranch'
-Plug 'janko-m/vim-test'
 Plug 'jiangmiao/auto-pairs'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
-Plug 'kristijanhusak/defx-icons'
+Plug 'kyazdani42/nvim-tree.lua'
+Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'neovim/nvim-lspconfig'
+Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim'
@@ -58,38 +54,41 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'pangloss/vim-javascript'
 Plug 'ryanoasis/vim-devicons'
-Plug 'slashmili/alchemist.vim'
 Plug 'slim-template/vim-slim'
 Plug 'terryma/vim-multiple-cursors'
+Plug 'tiagovla/tokyodark.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
 call plug#end()
-
-" Lua configuration
-lua << EOF
-require "telescope".setup {
-  defaults = {
-    preview = {
-      treesitter = false
-    }
-  }
-}
-EOF
 
 filetype plugin indent on
 
 "COLORSCHEME
 let ayucolor='mirage'
 let g:tokyonight_style='storm'
+let g:tokyonight_italic_comments = 1
+let g:tokyonight_italic_functions = 1
+let g:tokyonight_italic_keywords = 1
+let g:tokyonight_italic_variables = 1
+let g:tokyonight_dark_sidebar = 1
+let g:tokyonight_dark_float = 0
+
+" Tokyo Dark Config
+let g:tokyodark_transparent_background = 0
+let g:tokyodark_enable_italic_comment = 1
+let g:tokyodark_enable_italic = 1
+let g:tokyodark_color_gamma = "1.0"
 "let ayucolor='light'
 "colorscheme pencil
 "colorscheme miami-night
 "colorscheme trial
 colorscheme tokyonight
+"colorscheme tokyodark
 "colorscheme nord
 "colorscheme dracula
-
+"colorscheme ayu
+"
 map <F2> :set paste<CR>i
 map <silent> <F3> :call BufferList()<CR>
 
@@ -104,7 +103,6 @@ let g:neovide_cursor_trail_length=0
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_airline_statusline = 1
 let loaded_netrwPlugin = 1
-let g:defx_icons_column_length = 2
 
 hi ColorColumn guibg=#434343 ctermbg=238
 
@@ -122,7 +120,7 @@ let g:coc_snippet_next = '<Down>'
 let g:coc_snippet_prev = '<Up>'
 
 " FZF
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
+" let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.8 } }
 
 inoremap <silent><expr> <TAB>
       \ pumvisible() ? "\<C-n>" :
@@ -156,14 +154,19 @@ nmap <C-j> ]e
 nmap <leader>l :bn<CR>
 nmap <leader>h :bp<CR>
 nmap <silent> <leader>d :GFiles?<CR>
-nmap <silent> <leader>t :TestFile<CR>
-nmap <silent> <leader>a :TestSuite<CR>
-nmap <silent> <leader>g :TestVisit<CR>
+
+" Formatter
+nmap <leader>fmf :CocCommand prettier.formatFile<CR>
 
 " Save when insert mode
 map <silent> <leader>s :StripWhitespace<CR><ESC> :w<CR>
 nmap <silent> <leader>s :StripWhitespace<CR><ESC> :w<CR>
 imap <silent> <leader>s <ESC>:StripWhitespace<CR><ESC> :w<CR>
+
+" Tabs keybinding
+nmap <silent> <leader>ta :tabnew<CR>
+nmap <silent> <leader>th :tabprevious<CR>
+nmap <silent> <leader>tl :tabnext<CR>
 
 " Open coc yank lis
 nnoremap <silent> <leader>y  :<C-u>CocList -A --normal yank<cr>
@@ -187,69 +190,6 @@ map sl <C-w>l
 "nmap <leader>f :Rg <CR>
 "nmap <leader>b :Buffers <CR>
 
-" Telescope file finder - like fzf
-" Using Lua function
-"nnoremap <C-p> <cmd>lua require('telescope.builtin').find_files()<cr>
-"nnoremap <leader>f <cmd>lua require('telescope.builtin').live_grep()<cr>
-"nnoremap <leader>b <cmd>lua require('telescope.builtin').buffers()<cr>
-"nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-" Find files using Telescope command-line sugar.
-nnoremap <C-p>      <cmd>Telescope find_files<cr>
-nnoremap <leader>f  <cmd>Telescope live_grep<cr>
-nnoremap <leader>b  <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-
-call defx#custom#option('_', {
-      \ 'winwidth': 30,
-      \ 'split': 'vertical',
-      \ 'show_ignored_files': 1,
-      \ 'buffer_name': 'defxplorer',
-      \ 'toggle': 1,
-      \ 'resume': 1
-      \ })
-map <C-space> :Defx -columns=indent:icons:filename:type<CR>
-
-" Defx
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR> defx#do_action('drop')
-  nnoremap <silent><buffer><expr> c defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m defx#do_action('move')
-  nnoremap <silent><buffer><expr> p defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l defx#do_action('open')
-  nnoremap <silent><buffer><expr> E defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> P defx#do_action('open', 'pedit')
-  nnoremap <silent><buffer><expr> o defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr> K defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C defx#do_action('toggle_columns', 'mark:indent:icon:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r defx#do_action('rename')
-  nnoremap <silent><buffer><expr> ! defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> . defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ; defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> h defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space> defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> * defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l> defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g> defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd defx#do_action('change_vim_cwd')
-endfunction
-
-"call defx#custom#column('icon', {
-"      \ 'directory_icon': '',
-"      \ 'opened_icon': '',
-"      \ 'root_icon': '📁',
-"      \ })
 autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
 autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
 

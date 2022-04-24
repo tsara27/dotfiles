@@ -20,6 +20,9 @@ source ~/.cocoa_docker_env
 # source $HOME/.cargo/env
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
+#
+# Global config
+export EDITOR=nvim
 
 # Bundle config
 export BUNDLE_GITHUB__HTTPS=true
@@ -42,6 +45,7 @@ alias bex="bundle exec"
 alias br="bundle exec rspec"
 alias cl="clear"
 alias gadd="git add"
+alias gits="git status"
 alias gt="git status"
 alias rtest="rake test"
 alias towork="cd ~/Works"
@@ -61,7 +65,12 @@ alias tatt="tmux attach"
 alias restartgnome="killall -SIGQUIT gnome-shell"
 # Remove unused branches
 alias git_clean="git branch --merged | egrep -v \"(^\*|master|staging)\" | xargs git branch -d"
-
+# Alias for amitree
+alias run_tests="bex tmuxinator start test"
+alias stop_tests="bex tmuxinator stop test"
+alias run_server="bex tmuxinator start amitree"
+alias start_server="bex tmuxinator start amitree"
+alias stop_server="bex tmuxinator stop amitree"
 
 # . ~/OTP/20.2/activate
 #export PATH="$PATH:$HOME/.kerl"
@@ -123,9 +132,15 @@ xset r rate 300 60
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
+# Export terminfo path
+export TERMINFO='/usr/share/terminfo/'
+# Enable italic inside terminal
+echo "export TERM=xterm-256color-italic" >> ~/.zshrc
+
 # Add rbenv to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$HOME/.rbenv/bin:$PATH"
 export PATH="$HOME/.rbenv/plugins/ruby-build/bin:$PATH"
 eval "$(rbenv init -)"
 eval "$(starship init zsh)"
 export PATH="/home/linuxbrew/.linuxbrew/opt/imagemagick@6/bin:$PATH"
+export TERM=xterm-256color-italic
