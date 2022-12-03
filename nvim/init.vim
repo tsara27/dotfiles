@@ -18,7 +18,7 @@ set nobackup
 set noswapfile
 set nowritebackup
 set nu rnu
-set number relativenumber
+"set number relativenumber
 set termguicolors
 "set textwidth=80
 set ttyfast
@@ -27,10 +27,11 @@ set t_ZR=^[[23m
 
 call plug#begin('~/.vim/plugged')
 Plug 'MaxMEllon/vim-jsx-pretty'
-Plug 'Mofiqul/dracula.nvim'
 Plug 'arcticicestudio/nord-vim'
 Plug 'ayu-theme/ayu-vim'
 Plug 'bling/vim-bufferline'
+Plug 'dense-analysis/ale'
+Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'easymotion/vim-easymotion'
 Plug 'folke/tokyonight.nvim'
 Plug 'folke/trouble.nvim'
@@ -54,6 +55,7 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
 Plug 'pangloss/vim-javascript'
+Plug 'preservim/tagbar'
 Plug 'ryanoasis/vim-devicons'
 Plug 'slim-template/vim-slim'
 Plug 'terryma/vim-multiple-cursors'
@@ -82,15 +84,20 @@ let g:tokyodark_enable_italic_comment = 1
 let g:tokyodark_enable_italic = 1
 let g:tokyodark_color_gamma = "1.0"
 
-let ayucolor='light'
+"let ayucolor='light'
 "colorscheme pencil
-"colorscheme miami-night
 "colorscheme trial
-"colorscheme tokyonight
-colorscheme tokyodark
+"colorscheme tokyonight-storm
+"colorscheme tokyodark
 "colorscheme nord
-"colorscheme dracula
 "colorscheme ayu
+colorscheme dracula
+"
+
+" ALE Setup - standardrb
+let g:ale_linters = {'ruby': ['standardrb']}
+let g:ale_fixers = {'ruby': ['standardrb']}
+let g:ale_fix_on_save = 1
 "
 
 map <F2> :set paste<CR>i
@@ -106,7 +113,8 @@ let g:neovide_cursor_trail_length=0
 
 let g:webdevicons_enable = 1
 let g:webdevicons_enable_airline_statusline = 1
-let loaded_netrwPlugin = 1
+let g:loaded_netrw = 1
+let g:loaded_netrwPlugin = 1
 
 hi ColorColumn guibg=#434343 ctermbg=238
 
@@ -117,7 +125,8 @@ let g:lightline = {
 " COC Configuration
 let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json',
                              \ 'coc-tsserver', 'coc-yaml', 'coc-prettier',
-                             \ 'coc-tsserver', 'coc-snippets', 'coc-yank']
+                             \ 'coc-tsserver', 'coc-snippets', 'coc-yank',
+                             \ 'coc-tabnine']
 
 let g:coc_snippet_next = '<Down>'
 let g:coc_snippet_prev = '<Up>'
@@ -147,6 +156,22 @@ imap <Left> <nop>
 imap <Right> <nop>
 map <Up> <nop>
 map <Down> <nop>
+
+" Tags
+nmap <Leader>tt :TagbarToggle<CR>
+
+" Easymotion
+" <Leader>f{char} to move to {char}
+map  <Leader>e <Plug>(easymotion-bd-f)
+nmap <Leader>e <Plug>(easymotion-overwin-f)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 " Resize key binding
 map <Left> :vertical resize -5<CR>
