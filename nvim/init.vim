@@ -12,13 +12,14 @@ set history=50
 set ignorecase
 set iskeyword+=\-
 set lazyredraw
-set linespace=5
+set linespace=20
 set mouse=a
 set nobackup
 set noswapfile
 set nowritebackup
 set nu rnu
 "set number relativenumber
+set norelativenumber
 set termguicolors
 "set textwidth=80
 set ttyfast
@@ -43,7 +44,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'junegunn/vim-easy-align'
 Plug 'kchmck/vim-coffee-script'
-Plug 'kyazdani42/nvim-tree.lua'
 Plug 'kyazdani42/nvim-web-devicons' " for file icons
 Plug 'mxw/vim-jsx'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -51,6 +51,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope-file-browser.nvim'
 Plug 'nvim-telescope/telescope-fzf-native.nvim'
 Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-treesitter/nvim-treesitter'
@@ -63,6 +64,8 @@ Plug 'tiagovla/tokyodark.nvim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-scripts/BufOnly.vim'
+Plug 'williamboman/mason-lspconfig.nvim'
+Plug 'williamboman/mason.nvim'
 Plug 'windwp/nvim-autopairs'
 call plug#end()
 
@@ -123,7 +126,7 @@ let g:lightline = {
       \ }
 
 " COC Configuration
-let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json',
+let g:coc_global_extensions = ['coc-css', 'coc-html', 'coc-json', 'coc-solargraph',
                              \ 'coc-tsserver', 'coc-yaml', 'coc-prettier',
                              \ 'coc-tsserver', 'coc-snippets', 'coc-yank',
                              \ 'coc-tabnine']
@@ -193,6 +196,9 @@ map <silent> <leader>s :StripWhitespace<CR><ESC> :w<CR>
 nmap <silent> <leader>s :StripWhitespace<CR><ESC> :w<CR>
 imap <silent> <leader>s <ESC>:StripWhitespace<CR><ESC> :w<CR>
 
+" Copy relative path
+nmap <silent> <leader>cp :CopyRelPath<CR>
+
 " Tabs keybinding
 nmap <silent> <leader>ta :tabnew<CR>
 nmap <silent> <leader>th :tabprevious<CR>
@@ -226,6 +232,13 @@ autocmd BufRead,BufNewFile *.es6 setlocal filetype=javascript
 au InsertLeave * set nopaste
 
 lua << EOF
+-- Initiate Mason
+require("mason").setup()
+require("mason-lspconfig").setup()
+-- Attach LSP
+-- require("lspconfig").sorbet.setup {}
+-- require("lspconfig").ruby_lsp.setup {}
+
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
 npairs.setup({map_cr=false})
@@ -242,13 +255,25 @@ _G.MUtils= {}
   -- end
 -- end
 
+-- COC configuration
+---- GoTo code navigation
+local keyset = vim.keymap.set
+keyset("n", "gd", "<Plug>(coc-definition)", {silent = true})
+keyset("n", "gy", "<Plug>(coc-type-definition)", {silent = true})
+keyset("n", "gi", "<Plug>(coc-implementation)", {silent = true})
+keyset("n", "gr", "<Plug>(coc-references)", {silent = true})
+
+-- Setup copy rel path
+vim.api.nvim_create_user_command("CopyRelPath", "call setreg('+', expand('%'))", {})
+
+
 -- new version for custom pum
 MUtils.completion_confirm=function()
-    if vim.fn["coc#pum#visible"]() ~= 0  then
-        return vim.fn["coc#pum#confirm"]()
-    else
-        return npairs.autopairs_cr()
-    end
+  if vim.fn["coc#pum#visible"]() ~= 0  then
+    return vim.fn["coc#pum#confirm"]()
+  else
+    return npairs.autopairs_cr()
+  end
 end
 
 remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
