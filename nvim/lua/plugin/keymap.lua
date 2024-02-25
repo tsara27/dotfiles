@@ -7,20 +7,28 @@ vim.keymap.set('!', '<Down>', '<nop>')
 
 -- Tags
 vim.keymap.set('n', '<leader>tt', require('telescope.builtin').tags, { desc = 'Display tags' })
--- 
+--
 -- -- Easymotion
 -- -- <Leader>f{char} to move to {char}
 -- map  <Leader>e <Plug>(easymotion-bd-f)
 -- nmap <Leader>e <Plug>(easymotion-overwin-f)
--- 
+--
 -- -- Move to line
 -- map <Leader>L <Plug>(easymotion-bd-jk)
 -- nmap <Leader>L <Plug>(easymotion-overwin-line)
--- 
+--
 -- -- Move to word
 -- map  <Leader>w <Plug>(easymotion-bd-w)
 -- nmap <Leader>w <Plug>(easymotion-overwin-w)
--- 
+--
+--
+--
+-- Disable arrows
+vim.keymap.set('i', '<Left>', '<nop>')
+vim.keymap.set('i', '<Right>', '<nop>')
+vim.keymap.set('n', '<Up>', '<nop>')
+vim.keymap.set('n', '<Down>', '<nop>')
+
 -- Resize key binding
 vim.keymap.set('!', '<Left>', ':vertical resize -5<CR>')
 vim.keymap.set('!', '<Right>', ':vertical resize +5<CR>')
@@ -33,18 +41,20 @@ vim.keymap.set('n', '<leader>l', ':bn<CR>')
 vim.keymap.set('n', '<leader>h', ':bp<CR>')
 vim.keymap.set('n', '<silent><leader>d', ':GFiles?<CR>')
 
--- 
+--
 -- -- Formatter
 -- nmap <leader>fmf :CocCommand prettier.formatFile<CR>
--- 
+--
 -- -- Save when insert mode
-vim.keymap.set('!', '<silent><leader>s', ':StripWhitespace<CR><ESC> :w<CR>')
-vim.keymap.set('n', '<silent><leader>s', ':StripWhitespace<CR><ESC> :w<CR>')
-vim.keymap.set('i', '<silent><leader>s', '<ESC><ESC>:StripWhitespace<CR><ESC> :w<CR>')
+vim.keymap.set('!', '<leader>s', ':StripWhitespace<CR><ESC> :w<CR>')
+vim.keymap.set('n', '<leader>s', ':StripWhitespace<CR><ESC> :w<CR>')
+vim.keymap.set('i', '<leader>s', '<ESC><ESC>:StripWhitespace<CR><ESC> :w<CR>')
 
 -- -- Copy relative path
-vim.keymap.set('n', '<silent><leader>cp', ':CopyRelPath')
--- 
+vim.keymap.set('n', '<leader>cp', ':CopyRelPath<CR>')
+--
+-- -- Tagbar Toggle
+vim.keymap.set('n', '<leader>tt', ':TagbarToggle<CR>')
 -- -- Tabs keybinding
 -- nmap <silent> <leader>ta :tabnew<CR>
 -- nmap <silent> <leader>th :tabprevious<CR>

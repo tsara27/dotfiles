@@ -2,11 +2,21 @@
 -- See `:help vim.o`
 -- NOTE: You can change these options as you wish!
 
+-- From previous config
+vim.o.history = 50
+vim.o.lazyredraw = true
+vim.o.linespace = 20
+vim.o.backup = false
+vim.o.swapfile = false
+vim.o.writebackup = false
+vim.o.ttyfast = true
+
 -- Set highlight on search
-vim.o.hlsearch = false
+vim.o.hlsearch = true
 
 -- Make line numbers default
 vim.wo.number = true
+vim.wo.relativenumber = true
 
 -- Enable mouse mode
 vim.o.mouse = 'a'
@@ -39,9 +49,9 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.o.expandtab = true 
-vim.o.softtabstop=2 
-vim.o.shiftwidth=2
+vim.o.expandtab = true
+vim.o.softtabstop = 2
+vim.o.shiftwidth = 2
 -- [[ Basic Keymaps ]]
 
 -- Keymaps for better default experience
@@ -62,3 +72,5 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+vim.api.nvim_create_user_command("CopyRelPath", "call setreg('+', expand('%'))", {})

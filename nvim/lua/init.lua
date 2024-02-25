@@ -20,37 +20,59 @@ vim.opt.rtp:prepend(lazypath)
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
 require('lazy').setup({
+  'arcticicestudio/nord-vim',
+  'ayu-theme/ayu-vim',
   'dense-analysis/ale',
+  'folke/tokyonight.nvim',
+  -- 'hrsh7th/vim-vsnip',
+  -- 'hrsh7th/vim-vsnip-integ',
+  'ntpeters/vim-better-whitespace',
+  'preservim/tagbar',
   'tpope/vim-fugitive',
   'tpope/vim-rhubarb',
   'tpope/vim-sleuth',
-  'arcticicestudio/nord-vim',
-  'ayu-theme/ayu-vim',
-  'folke/tokyonight.nvim',
   { 'dracula/vim', as = 'dracula'},
-  { 'folke/which-key.nvim', opts = {} },
   { 'numToStr/Comment.nvim', opts = {} },
-  {'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons'},
+  { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
 
-  {
-    'neovim/nvim-lspconfig',
-    dependencies = {
-      { 'williamboman/mason.nvim', config = true },
-      'williamboman/mason-lspconfig.nvim',
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
-      'folke/neodev.nvim',
-    },
+  { "folke/which-key.nvim",
+    event = "VeryLazy",
+    init = function()
+      vim.o.timeout = true
+      vim.o.timeoutlen = 300
+    end,
+    opts = {
+      -- your configuration comes here
+      -- or leave it empty to use the default settings
+      -- refer to the configuration section below
+    }
   },
 
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      'L3MON4D3/LuaSnip',
-      'saadparwaiz1/cmp_luasnip',
-      'hrsh7th/cmp-nvim-lsp',
-      'rafamadriz/friendly-snippets',
-    },
+    'neoclide/coc.nvim',
+    branch = 'release'
   },
+
+  -- {
+  --   'neovim/nvim-lspconfig',
+  --   dependencies = {
+  --     { 'williamboman/mason.nvim', config = true },
+  --     'williamboman/mason-lspconfig.nvim',
+  --     { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+  --     'folke/neodev.nvim',
+  --   },
+  -- },
+
+  -- {
+  --   'hrsh7th/nvim-cmp',
+  --   event = { "InsertEnter", "CmdlineEnter" },
+  --   dependencies = {
+  --     'L3MON4D3/LuaSnip',
+  --     'saadparwaiz1/cmp_luasnip',
+  --     'hrsh7th/cmp-nvim-lsp',
+  --     'rafamadriz/friendly-snippets',
+  --   },
+  -- },
 
   {
     'lewis6991/gitsigns.nvim',
@@ -81,23 +103,12 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
-        icons_enabled = false,
-        theme = 'onedark',
+        icons_enabled = true,
         component_separators = '|',
         section_separators = '',
       },
     },
   },
-
-  {
-    'lukas-reineke/indent-blankline.nvim',
-    main = "ibl",
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
-  },
-
 
   {
     'nvim-telescope/telescope.nvim',
