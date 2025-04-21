@@ -24,6 +24,7 @@ require('lazy').setup({
   'ayu-theme/ayu-vim',
   'dense-analysis/ale',
   'folke/tokyonight.nvim',
+  'github/copilot.vim',
   -- 'hrsh7th/vim-vsnip',
   -- 'hrsh7th/vim-vsnip-integ',
   'ntpeters/vim-better-whitespace',
@@ -34,19 +35,6 @@ require('lazy').setup({
   { 'dracula/vim', as = 'dracula'},
   { 'numToStr/Comment.nvim', opts = {} },
   { 'akinsho/bufferline.nvim', version = "*", dependencies = 'nvim-tree/nvim-web-devicons' },
-
-  { "folke/which-key.nvim",
-    event = "VeryLazy",
-    init = function()
-      vim.o.timeout = true
-      vim.o.timeoutlen = 300
-    end,
-    opts = {
-      -- your configuration comes here
-      -- or leave it empty to use the default settings
-      -- refer to the configuration section below
-    }
-  },
 
   {
     'neoclide/coc.nvim',
